@@ -1,0 +1,6 @@
+cd 폴더이름
+
+커밋 순서
+git add . (. 대신 파일명/폴더명을 쓰면 해당 내용만)
+git commit -m '어쩌고저쩌고 커밋이름'
+git push origin 브랜치 이름
