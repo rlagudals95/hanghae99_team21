@@ -1,17 +1,32 @@
-from flask import Flask, render_template, jsonify, request
-app = Flask(__name__)
+from pymongo import MongoClient
+import jwt
+import datetime
+import hashlib
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+
+
 
 import requests
 from bs4 import BeautifulSoup
 
-from pymongo import MongoClient
+
 client = MongoClient('localhost', 27017)
 db = client.dbsparta
 
 ## HTML을 주는 부분
-@app.route('/')
+@app.route('/home')
 def home():
-   return render_template('index.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+
+        return render_template('index.html')
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 @app.route('/memo', methods=['GET'])
 def listing():

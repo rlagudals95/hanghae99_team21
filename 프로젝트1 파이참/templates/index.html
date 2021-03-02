@@ -23,6 +23,9 @@
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="animaton.css">
 
+
+
+
     <!--  스타일 적용이 안돼서 직접 html에 넣음    -->
 
     <style>
@@ -205,6 +208,177 @@
             font-weight: bold;
         }
 
+        @keyframes show {
+            0% {
+                opacity: 0;
+                transform: translatey(100px) scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translatey(0px) scale(1);
+            }
+        }
+
+        @keyframes card-show {
+            0% {
+                opacity: 0.7;
+                transform: translatey(10px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translatey(0px) scale(1);
+            }
+        }
+
+        /* css */
+        html {
+        }
+
+        .site-header {
+            padding-top: 2em;
+            padding-bottom: 1em;
+        }
+
+        .header-image {
+            margin-top: 1em;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .main-navigation {
+            margin-top: 80px;
+        }
+
+        /*--------------------------------------------------------------6.1 Links--------------------------------------------------------------*/
+        a {
+            color: inherit;
+            text-decoration: none;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        a:visited {
+            color: #666666;
+        }
+
+        a:hover {
+            color: #ccc;
+            text-decoration: none;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+        }
+
+        a:active,
+        a:focus {
+            text-decoration: none;
+        }
+
+        /*--------------------------------------------------------------6.2 Logo and Title--------------------------------------------------------------*/
+        .site-branding {
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        .site-title {
+            font-family: "Quattrocento Sans", sans-serif;
+            font-size: 50px;
+            font-weight: 550;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .site-title a {
+            text-decoration: none;
+        }
+
+        .logo {
+
+        }
+
+        .logo:hover {
+            animation: card-show 1s;
+        }
+
+        #post-box {
+            width: 500px;
+            margin: 20px auto;
+            padding: 50px;
+            border: black solid;
+            border-radius: 5px;
+        }
+
+        .site-description {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            margin-top: 30px;
+            margin-bottom: 35px;
+            padding-top: 0;
+            opacity: 0.7;
+        }
+
+        /*--------------------------------------------------------------6.3 Menus--------------------------------------------------------------*/
+        .menu {
+            margin-top: 100px;
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            font-weight: normal;
+            margin: 0 50px;
+            opacity: 0.7;
+        }
+
+        .cards-box {
+            display: flex;
+            height: 1000;
+            justify-content: space-between;
+            margin: 0 200px;
+            margin-top: 100px;
+        }
+
+        .card_length {
+            margin: 0;
+            margin-top: 30px;
+            width: 300px;
+            height: 1000px;
+            border-radius: 20px;
+            box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .1);
+        }
+
+        .card:hover {
+            animation: card-show 1s;
+        }
+
+        #post-box {
+
+            top: 50%;
+            left: 50%;
+
+            text-align: center;
+            background-color: white;
+            width: 500px;
+            padding: 50px;
+            border: gray 1px solid;
+            border-radius: 5px;
+            z-index: 4;
+            transition: 1s;
+            box-shadow: rgba(0, 0, 0, 1);
+            animation: show 1s;
+            animation-fill-mode: both;
+            font-weight: bold;
+        }
+
 
     </style>
 
@@ -244,7 +418,7 @@
         function showArticles() {
             $.ajax({
                 type: "GET",
-                url: "/memo?sample_give=샘플데이터",
+                url: "/memo",
                 data: {},
                 success: function (response) {
 
@@ -256,7 +430,7 @@
                         let url = videos[i]['url']
                         let comment = videos[i]['comment']
 
-                        let temp_html = `<div class="card">
+                        let temp_html = `<div class="card_length">
                                                 <img class="card-img-top"
                                                      src="${image}"
                                                      alt="Card image cap">
@@ -267,7 +441,7 @@
                                                 </div>
                                             </div>`
 
-                        $('#cards-box').append(temp_html)
+                        $('#cards').append(temp_html)
                     }
                 }
             })
@@ -319,7 +493,7 @@
 </div>
 
 <!--  카드박스   -->
-<div class="cards-box">
+<div id='cards' class="cards-box card">
 
 </div>
 </body>
