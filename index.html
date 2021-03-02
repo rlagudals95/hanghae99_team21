@@ -8,30 +8,88 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/card.css">
 
+  <!-- BULMA -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   
 </head>
 <body>
-  <div class="nav_box">
-    <div class="nav_list logo"><a href="#">Home</a></div>
-    <button class="nav_list cat_btn"><a href="#">cat1</a></button>
-    <button class="nav_list cat_btn"><a href="#">cat2</a></button>
-    <button class="nav_list cat_btn"><a href="#">cat3</a></button>
-    <button class="nav_list cat_btn"><a href="#">cat4</a></button>
-    <button class="nav_list cat_btn"><a href="#">cat5</a></button>
-    <button class="nav_list cat_btn"><a href="#">cat6</a></button>
-    <div class="nav_list"><a href="#">Write Review</a></div>
-    <div class="nav_list"><a href="#">Login</a></div>
-  </div>
+
+  <nav class="navbar is-transparent">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyQZ2G0is6ukZ-_Q_Ak-p9ttFFJXA85FgbVg&usqp=CAU" width="112" height="28">
+      </a>
+      <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div id="navbarExampleTransparentExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+        <a class="navbar-item" href="#">
+          Category
+        </a>
+      </div>  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
+                <span class="icon">
+                  <i class="fab fa-twitter"></i>
+                </span>
+                <span>
+                  Review
+                </span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.1/bulma-0.9.1.zip">
+                <span class="icon">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span>Login</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <div class='main_box'>
     <div class="card">
       <div class="card_deco"></div>
       <div class="prof_img"></div>
       <div>
-        <div>노마드 코더 Nomad Coders</div>
-        <div>IT</div>
-        <div>Follower : 24m</div>
-        <div>Like : 0</div>
+        <div class="desc">
+          <div class="desc-body">
+              <div class="desc-title">노마드 코더 Nomad Coders</div>
+              <div class="desc-text">
+                  body
+              </div>
+          </div>
+          <div class="desc-footer">
+              footer
+          </div>
+      </div>
       </div>
     </div>
   </div>
