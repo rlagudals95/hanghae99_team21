@@ -60,18 +60,8 @@
             padding-bottom: 1em;
         }
 
-        .header-image {
-            margin-top: 1em;
-            text-align: center;
-            margin-bottom: 2em;
-        }
-
         li {
             list-style: none;
-        }
-
-        .main-navigation {
-            margin-top: 80px;
         }
 
         /*--------------------------------------------------------------6.1 Links--------------------------------------------------------------*/
@@ -121,14 +111,6 @@
 
         .site-title a {
             text-decoration: none;
-        }
-
-        .logo {
-
-        }
-
-        .logo:hover {
-            animation: card-show 1s;
         }
 
         #post-box {
@@ -184,20 +166,23 @@
             font-size: 25px;
             font-weight: bold;
             color: dodgerblue;
-            margin-bottom: 10px;
+
+            margin: 0 auto 10px auto;
         }
 
-        .category {
-            margin-top: 7px;
-            font-size: 12px;
-            opacity: 0.8;
-
+        .card-text {
+            height: 100px;
+            overflow: hidden;
+            word-wrap: break-word;
         }
+
 
         .comment {
             font-weight: bolder;
             margin-top: 10px;
-            overflow: hidden;
+
+
+            height: 75px;
         }
 
         .card:hover {
@@ -282,7 +267,6 @@
                 url: "/memo",
                 data: {},
                 success: function (response) {
-
                     let videos = response['postVideos']
                     for (let i = 0; i < videos.length; i++) {
                         let title = videos[i]['title']
@@ -355,6 +339,7 @@
        onclick="sign_out()">
         로그아웃
     </a>
+
 </header>
 
 <!--  포스트박스 -->
@@ -377,5 +362,7 @@
 <div id='cards' class="cards-box">
 
 </div>
+
+
 </body>
 </html>
