@@ -204,11 +204,6 @@
             animation: card-show 1s;
         }
 
-        .like-Btn {
-            font-weight: bold;
-
-        }
-
         .like-Btn:hover {
             opacity: 0.8;
         }
@@ -238,6 +233,12 @@
             height: 60px;
             margin: auto;
             dispaly: block;
+        }
+
+        .nick {
+            text-align: center;
+            color: blue;
+            margin-bottom: 20px;
         }
 
     </style>
@@ -349,6 +350,7 @@
         <img src="static/images/프로젝트1 로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
              class="btn btn-primary"/>
     </div>
+    <h5 class="nick">닉네임:{{ nickname }}</h5>
     <a class="button level-item has-text-centered is-sparta is-outlined space" aria-label="logout"
        onclick="sign_out()">
         로그아웃
