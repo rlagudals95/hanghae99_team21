@@ -52,11 +52,11 @@ def saving():
     image = soup.select_one('meta[property="og:image"]')['content']
     desc = soup.select_one('meta[property="og:description"]')['content']
 
-    doc = {'title' : title,
-           'image' : image,
-           'desc' : desc,
-           'url' : url_receive,
-           'comment' : comment_receive,
+    doc = {'title': title,
+           'image': image,
+           'desc': desc,
+           'url': url_receive,
+           'comment': comment_receive,
            }
 
 

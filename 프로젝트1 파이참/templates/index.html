@@ -174,13 +174,15 @@
             justify-content: space-between;
             margin: 0 200px;
             margin-top: 100px;
+
         }
 
         .card {
+            overflow: hidden;
             margin: 0;
             margin-top: 30px;
-            width: 300px;
-            height: 400px;
+            width: 400px;
+            height: 600px;
             border-radius: 20px;
             box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .1);
         }
@@ -421,7 +423,6 @@
                 url: "/memo",
                 data: {},
                 success: function (response) {
-
                     let videos = response['postVideos']
                     for (let i = 0; i < videos.length; i++) {
                         let title = videos[i]['title']
@@ -441,7 +442,11 @@
                                                 </div>
                                             </div>`
 
+<<<<<<< HEAD
                         $('#cards').append(temp_html)
+=======
+                        $('.cards-box').append(temp_html)
+>>>>>>> 82b42a7440d114bb7af4feca70cd6fdc80ec948c
                     }
                 }
             })
