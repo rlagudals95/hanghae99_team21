@@ -20,15 +20,17 @@ db = client.loginprac
 
 @app.route('/')
 def home():
+    videos = list(db.aloneprac.find({}, {'_id': False}).sort('like', -1))
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('index.html', nickname=user_info['profile_name'])
+
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+    return render_template("index.html", videos=videos, nickname=user_info['profile_name'])
 
 
 @app.route('/login')
@@ -83,17 +85,16 @@ def check_dup():
     return jsonify({'result': 'success', 'exists': exists})
 
 
-@app.route('/show', methods=['GET'])
-def show():
-    videos = list(db.aloneprac.find({},{'_id':False}).sort('like', -1))
-    print(videos[0]['url'])
-    return render_template("index.html", videos=videos)
+
 
 
 ## API 역할을 하는 부분
 
 @app.route('/memo', methods=['POST'])
 def saving():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    user_info = db.users.find_one({"profile_name": payload["id"]})
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 
@@ -112,7 +113,8 @@ def saving():
            'desc': desc,
            'url': url_receive,
            'comment': comment_receive,
-           'like': 0
+           'like': 0,
+           'profile_name': user_info['profile_name']
            }
 
     db.aloneprac.insert_one(doc)
@@ -126,6 +128,7 @@ def delete_star():
     db.mystar.delete_one({'name': target_name})
     return jsonify({'msg': '삭제 완료ㅠㅠ'})
 
+
 @app.route('/show/like', methods=['POST'])
 def like_star():
     url_receive = request.form['url_give']
@@ -136,8 +139,8 @@ def like_star():
 
     db.aloneprac.update_one({'url': url_receive}, {'$set': {'like': new_like}})
     # 값을 변경해준다 네임값은 받은 네임값 라이크는 뉴라이크로
+
     return jsonify({'msg': 'like 완료!'})
-    return render_template("index.html", like_url=url_receive)
 
 
 if __name__ == '__main__':

@@ -328,7 +328,7 @@
     <header id="masthead" class="site-header">
     <div class="site-branding">
         <h1 class="site-title">
-            <a href="#" rel="home">My Fovorite Youtuber</a>
+            <a href="#" rel="home">My Favorite Youtuber</a>
         </h1>
         <h2 class="site-description">Post your youtuber</h2>
 
@@ -363,11 +363,9 @@
 
 <!--  카드박스   -->
 <div id='cards' class="cards-box">
-
-</div>
-
-{% for row in videos %}
+    {% for row in videos %}
     <div class="card">
+
         <img class="card-img-top"
              src="{{ row.image }}"
              alt="Card image cap">
@@ -375,15 +373,18 @@
             <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
             <p class="card-text">{{ row.desc }}</p>
             <p class="card-text comment">{{ row.comment }}</p>
+            <p>작성자: {{ row.profile_name }}</p>
             <div class="like-Btn">
-                <a href="#" onclick="like_Star({{ like_url }})" class="card-footer-item has-text-info">
+                <a href="#" onclick="like_Star({{ row.url }})" class="card-footer-item has-text-info">
                     Like!<span class="icon">
                                                       <i class="fas fa-thumbs-up"></i>
                                                     </span>
                     {{ row.like }}</a>
             </div>
         </div>
+
     </div>
-{% endfor %}
+    {% endfor %}
+</div>
 </body>
 </html>
