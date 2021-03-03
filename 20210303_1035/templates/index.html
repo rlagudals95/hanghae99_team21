@@ -269,31 +269,14 @@
                 success: function (response) {
                     let videos = response['postVideos']
                     for (let i = 0; i < videos.length; i++) {
-                        let title = videos[i]['title']
-                        let image = videos[i]['image']
-                        let desc = videos[i]['desc']
-                        let url = videos[i]['url']
-                        let comment = videos[i]['comment']
+
                         let like = videos[i]['like']
 
-                        let temp_html = `<div class="card">
-                                                <img class="card-img-top"
-                                                     src="${image}"
-                                                     alt="Card image cap">
-                                                <div class="card-body">
-                                                    <a target="_blank" href="${url}" class="card-title">${title}</a>
-                                                    <p class="card-text">${desc}</p>
-                                                    <p class="card-text comment">${comment}</p>
-                                                    <div class="like-Btn">
-                                                        <a href="#" onclick="like_Star('${url}')" class="card-footer-item has-text-info">
+                        let temp_html = `<a href="#" onclick="like_Star('${url}')" class="card-footer-item has-text-info">
                                                                 Like!<span class="icon">
                                                       <i class="fas fa-thumbs-up"></i>
                                                     </span>
-                                                    ${like}</a>
-                                                            </div>
-                                                </div>
-                                            </div>`
-
+                                                    ${like}</a>`
                         $('#cards').append(temp_html)
                     }
                 }
@@ -374,13 +357,8 @@
             <p class="card-text">{{ row.desc }}</p>
             <p class="card-text comment">{{ row.comment }}</p>
             <p>작성자: {{ row.profile_name }}</p>
-            <div class="like-Btn">
-                <a href="#" onclick="like_Star({{ row.url }})" class="card-footer-item has-text-info">
-                    Like!<span class="icon">
-                                                      <i class="fas fa-thumbs-up"></i>
-                                                    </span>
-                    {{ row.like }}</a>
-            </div>
+            <a href="#" onclick="like_Star('{{ row.url }}')">좋아요 : {{ row.like }}
+             </a>
         </div>
 
     </div>
