@@ -287,7 +287,7 @@
                 success: function (response) {
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token'], {path: '/'});
-                        window.location.replace("/")
+                        window.location.replace("/show")
                     } else {
                         alert(response['msg'])
                     }
