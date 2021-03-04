@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,7 +14,7 @@
             crossorigin="anonymous"></script>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>My Favorite YouTuber</title>
+    <title>마이 페이보릿 무비스타 | 프론트-백엔드 연결 마지막 예제!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -142,20 +143,6 @@
             opacity: 0.7;
         }
 
-        .logo {
-            animation: card-show 1s;
-        }
-
-        .logo:hover {
-            animation: card-show 1s;
-
-            opacity: 0.8;
-        }
-
-        .is-outlined{
-            margin-top: 20px;
-        }
-
         .cards-box {
             display: flex;
             justify-content: space-between;
@@ -207,14 +194,6 @@
             opacity: 0.8;
         }
 
-        .like-Btn {
-            position: absolute;
-            left: 50%;
-            bottom: 10px;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
 
         #post-box {
 
@@ -243,11 +222,9 @@
         }
 
         .nick {
-            margin-top: 15px;
             text-align: center;
             color: blue;
             margin-bottom: 20px;
-            font-weight: 500;
         }
 
     </style>
@@ -330,20 +307,19 @@
             window.location.href = "/login"
         }
 
-        function like_star(url) {
+        function like_Star(url) {
             $.ajax({
                 type: 'POST',
                 url: '/show/like',
                 data: {url_give: url},
                 success: function (response) {
                     alert(response['msg']);
-
                     window.location.reload()
                 }
             });
         }
 
-                {#프로필수정#}
+        {#프로필수정#}
 
         function update_profile() {
             let name = $('#input-name').val()
@@ -387,14 +363,18 @@
         </h1>
         <h2 class="site-description">Post your youtuber</h2>
 
-        <img src="/static/프로젝트1%20로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
+        <img src="static/images/프로젝트1 로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
              class="btn btn-primary"/>
 
+        {#        <h5 class="nick">닉네임:{{ nickname }}</h5>#}
+        {##}
+        {#        <a class="button level-item has-text-centered is-sparta is-outlined space" aria-label="logout"#}
+        {#           onclick="sign_out()">#}
+        {#            로그아웃#}
+        {#        </a>#}
     </div>
 
 </header>
-
-
 
 <!-- 계정박스 -->
 
@@ -505,17 +485,12 @@
 </section>
 
 
-
-
-
-
-
 <!--  포스트박스 -->
 
 <div id="post-box" class="form-post" style="display:none">
     <div>
         <div class="form-group">
-            <label for="post-url">YouTuber URL</label>
+            <label for="post-url">Youtuber URL</label>
             <input id="post-url" class="form-control" placeholder="">
         </div>
         <div class="form-group">
@@ -536,13 +511,14 @@
                  alt="Card image cap">
             <div class="card-body">
                 <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
-                <p>작성자: {{ row.profile_name }}</p>
                 <p class="card-text">{{ row.desc }}</p>
                 <p class="card-text comment">{{ row.comment }}</p>
-
+                <p>작성자: {{ row.profile_name }}</p>
                 <div class="like-Btn">
-                    <a href="#" onclick="like_star('{{ row.url }}')" class="card-footer-item has-text-info">
-                        Like!<span class="icon"><i class="fas fa-thumbs-up"></i></span>
+                    <a href="#" onclick="like_Star('{{ row.url }}')" class="card-footer-item has-text-info">
+                        Like!<span class="icon">
+                                                      <i class="fas fa-thumbs-up"></i>
+                                                    </span>
                         {{ row.like }}</a>
                 </div>
             </div>
@@ -550,5 +526,8 @@
         </div>
     {% endfor %}
 </div>
+
+
 </body>
 </html>
+
