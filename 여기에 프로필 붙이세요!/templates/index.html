@@ -142,6 +142,20 @@
             opacity: 0.7;
         }
 
+        .logo {
+            animation: card-show 1s;
+        }
+
+        .logo:hover {
+            animation: card-show 1s;
+
+            opacity: 0.8;
+        }
+
+        .is-outlined{
+            margin-top: 20px;
+        }
+
         .cards-box {
             display: flex;
             justify-content: space-between;
@@ -193,6 +207,14 @@
             opacity: 0.8;
         }
 
+        .like-Btn {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
 
         #post-box {
 
@@ -221,9 +243,11 @@
         }
 
         .nick {
+            margin-top: 15px;
             text-align: center;
             color: blue;
             margin-bottom: 20px;
+            font-weight: 500;
         }
 
     </style>
@@ -306,13 +330,14 @@
             window.location.href = "/login"
         }
 
-        function like_Star(url) {
+        function like_star(url) {
             $.ajax({
                 type: 'POST',
                 url: '/show/like',
                 data: {url_give: url},
                 success: function (response) {
                     alert(response['msg']);
+
                     window.location.reload()
                 }
             });
@@ -325,14 +350,14 @@
 
 <!-- 헤더  -->
 
-    <header id="masthead" class="site-header">
+<header id="masthead" class="site-header">
     <div class="site-branding">
         <h1 class="site-title">
             <a href="#" rel="home">My Favorite Youtuber</a>
         </h1>
         <h2 class="site-description">Post your youtuber</h2>
 
-        <img src="static/images/프로젝트1 로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
+        <img src="/static/프로젝트1%20로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
              class="btn btn-primary"/>
 
         <h5 class="nick">닉네임:{{ nickname }}</h5>
@@ -364,26 +389,25 @@
 <!--  카드박스   -->
 <div id='cards' class="cards-box">
     {% for row in videos %}
-    <div class="card">
+        <div class="card">
 
-        <img class="card-img-top"
-             src="{{ row.image }}"
-             alt="Card image cap">
-        <div class="card-body">
-            <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
-            <p class="card-text">{{ row.desc }}</p>
-            <p class="card-text comment">{{ row.comment }}</p>
-            <p>작성자: {{ row.profile_name }}</p>
-            <div class="like-Btn">
-                <a href="#" onclick="like_Star({{ row.url }})" class="card-footer-item has-text-info">
-                    Like!<span class="icon">
-                                                      <i class="fas fa-thumbs-up"></i>
-                                                    </span>
-                    {{ row.like }}</a>
+            <img class="card-img-top"
+                 src="{{ row.image }}"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
+                <p>작성자: {{ row.profile_name }}</p>
+                <p class="card-text">{{ row.desc }}</p>
+                <p class="card-text comment">{{ row.comment }}</p>
+
+                <div class="like-Btn">
+                    <a href="#" onclick="like_star('{{ row.url }}')" class="card-footer-item has-text-info">
+                        Like!<span class="icon"><i class="fas fa-thumbs-up"></i></span>
+                        {{ row.like }}</a>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     {% endfor %}
 </div>
 </body>
