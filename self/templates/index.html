@@ -323,28 +323,30 @@
 
         function update_profile() {
             let name = $('#input-name').val()
-            let file = $('#input-pic')[0].files[0]
+            let file = $('#input-pic')[0].files[0]  //파일
             let about = $("#textarea-about").val()
-            let form_data = new FormData()
-            form_data.append("file_give", file)
-            form_data.append("name_give", name)
-            form_data.append("about_give", about)
-
-            $.ajax({
-                type: "POST",
-                url: "/update_profile",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response["result"] == "success") {
-                        alert(response["msg"])
-                        window.location.reload()
-
+            if (name !== '') {
+                let form_data = new FormData()
+                form_data.append("file_give", file);   // 파일
+                form_data.append("name_give", name);
+                form_data.append("about_give", about);
+                $.ajax({
+                    type: "POST",
+                    url: "/update_profile",
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert(response["msg"])
+                            window.location.reload()
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                alert('수정할 닉네임을 작성해주세요')
+            }
         }
 
 
@@ -362,16 +364,8 @@
             <a href="#" rel="home">My Favorite Youtuber</a>
         </h1>
         <h2 class="site-description">Post your youtuber</h2>
-
         <img src="static/images/프로젝트1 로고.png" class="logo" onclick="openClose()" id="btn-post-box" type="button"
              class="btn btn-primary"/>
-
-        {#        <h5 class="nick">닉네임:{{ nickname }}</h5>#}
-        {##}
-        {#        <a class="button level-item has-text-centered is-sparta is-outlined space" aria-label="logout"#}
-        {#           onclick="sign_out()">#}
-        {#            로그아웃#}
-        {#        </a>#}
     </div>
 
 </header>
