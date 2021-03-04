@@ -30,7 +30,7 @@ def home():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-    return render_template("index.html", videos=videos, profile_info=user_info['profile_info'],username=user_info['username'], profile_name=user_info['profile_name'])
+    return render_template("index.html", videos=videos, profile_info=user_info['profile_info'],username=user_info['username'], profile_name=user_info['profile_name'], profile_pic_real=user_info['profile_pic_real'])
 
 
 @app.route('/login')
@@ -162,7 +162,7 @@ def save_img():
             file_path = f"profile_pics/{username}.{extension}"
             file.save("./static/"+file_path)
             new_doc["profile_pic"] = filename
-            new_doc["profile_pic_real"] = file_path
+            new_doc["profile_pic_real"] = file_path  # 파일
         db.users.update_one({'username': payload['id']}, {'$set':new_doc})
         return jsonify({"result": "success", 'msg': '프로필을 업데이트했습니다.'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
