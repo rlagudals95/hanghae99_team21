@@ -177,6 +177,7 @@
             margin: 0 200px;
             margin-top: 50px;
             flex-wrap: wrap;
+
         }
 
         .card {
@@ -185,7 +186,7 @@
             margin-top: 30px;
             margin-bottom: 130px;
             width: 400px;
-            height: 715px;
+            height: 700px;
             border-radius: 20px;
             box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .1);
         }
@@ -195,27 +196,19 @@
             font-weight: bold;
             color: dodgerblue;
             margin: 0 auto 10px auto;
-            display: inline-block;
-            height: 30px;
+        }
+
+        .card-text {
+            height: 100px;
             overflow: hidden;
             word-wrap: break-word;
         }
 
-        .card-text {
-            height: 70px;
-            overflow: auto;
-            word-wrap: break-word;
-        }
-
-        .writer {
-            margin-bottom: 5px;
-        }
 
         .comment {
             font-weight: bolder;
             margin-top: 10px;
-            height: 100px;
-            overflow: auto;
+            height: 75px;
         }
 
         .card:hover {
@@ -229,7 +222,7 @@
         .like-Btn {
             position: absolute;
             left: 50%;
-            bottom: -20px;
+            bottom: 10px;
             transform: translate(-50%, -50%);
             text-align: center;
         }
@@ -282,7 +275,7 @@
 
         .modal-content {
             position: absolute;
-            height: 400px;
+            height: 470px;
         }
 
         .media-content2 {
@@ -291,50 +284,18 @@
             width: 100%;
         }
 
+
         .box {
             height: 100%;
         }
-        .field {
-            margin-bottom: 10px;
+
+        .white{
+            width: 600px;
+            height: 60px;
+            background-color: white;
+            position: fixed;
+            z-index: 4;
         }
-
-        /* 스크롤바 컨트롤 */
-                .card-text::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .card-text::-webkit-scrollbar-thumb {
-            background-color: #cfc3e4;
-            border-radius: 10px;
-            background-clip: padding-box;
-            border: 2px solid transparent;
-        }
-
-        .card-text::-webkit-scrollbar-track {
-            border-radius: 10px;
-            box-shadow: inset 0px 0px 5px white;
-        }
-
-
-        .comment::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .comment::-webkit-scrollbar-thumb {
-            background-color: #cfc3e4;
-            border-radius: 10px;
-            background-clip: padding-box;
-            border: 2px solid transparent;
-        }
-
-        .comment::-webkit-scrollbar-track {
-            border-radius: 10px;
-            box-shadow: inset 0px 0px 5px white;
-        }
-
-
-
-
     </style>
 
 
@@ -503,7 +464,7 @@
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong>NICKNAME : {{ profile_name }}</strong> <strong> |  ID : {{ username }}</strong>
+                        <strong>ID : {{ profile_name }}</strong> <strong> |  NICKNAME : {{ username }}</strong>
                         <br>
                         <br>
                         {{ profile_info }}
@@ -514,6 +475,7 @@
         </article>
 
 
+        {# {% if status %}#}
         <nav id="btns-me" class="level is-mobile" style="margin-top:2rem">
             <a class="button level-item has-text-centered is-sparta" aria-label="edit"
                onclick='$("#modal-edit").addClass("is-active")'>
@@ -534,27 +496,44 @@
                 <div class="box">
                     <article class="media">
                         <div class="media-content2">
-                            <div>
-                                <div class="field">
-                                    <label class="label" for="input-name">닉네임</label>
+                            <div class="field">
+                                <label class="label" for="input-name">닉네임</label>
 
-                                    <p class="control">
+                                <p class="control">
 
-                                        <input id="input-name" class="input"
-                                               placeholder="홍길동" value="" required>
-                                    </p>
+                                    <input id="input-name" class="input"
+                                           placeholder="홍길동" value="{{ profile_name }}">
+                                </p>
+                            </div>
+                            <div class="field">
+
+
+                                <div class="control is-expanded">
+                                    <div class="file has-name">
+                                        <label class="file-label" style="width:100%">
+                                            <div class="white"></div>
+                                            <input id="input-pic" class="file-input" type="file"
+                                                   name="resume">
+                                            <span class="file-cta"><span class="file-icon"><i
+                                                    class="fa fa-upload"></i></span>
+                                                    <span class="file-label">파일 선택</span>
+                                                </span>
+                                            <span id="file-name" class="file-name"
+                                                  style="width:100%;max-width:100%"></span>
+                                        </label>
+                                    </div>
+
                                 </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="textarea-about">자기소개</label>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="textarea-about">자기소개</label>
 
-                                    <p class="control">
+                                <p class="control">
 
-                                                <textarea id="textarea-about" class="textarea"
-                                                          placeholder="나로 말하자면..."></textarea>
-                                    </p>
-                                </div>
-
+                                            <textarea id="textarea-about" class="textarea"
+                                                      placeholder="나로 말하자면..."></textarea>
+                                </p>
+                            </div>
                             <nav class="level is-mobile">
                                 <div class="level-left">
 
@@ -569,7 +548,6 @@
                                     </div>
                                 </div>
                             </nav>
-                            </div>
                         </div>
                     </article>
                 </div>
@@ -577,6 +555,7 @@
             <button class="modal-close is-large" aria-label="close"
                     onclick='$("#modal-edit").removeClass("is-active")'></button>
         </div>
+        {# {% endif %}#}
     </div>
 </section>
 
@@ -607,7 +586,7 @@
              alt="Card image cap">
         <div class="card-body">
             <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
-            <p class="writer">작성자: {{ row.profile_name }}</p>
+            <p>작성자: {{ row.profile_name }}</p>
             <p class="card-text">{{ row.desc }}</p>
             <p class="card-text comment">{{ row.comment }}</p>
 
