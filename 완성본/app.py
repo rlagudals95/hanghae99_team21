@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 import jwt
 import datetime
@@ -20,7 +21,7 @@ db = client.loginprac
 
 @app.route('/')
 def home():
-    videos = list(db.aloneprac.find({}, {'_id': False}).sort('like', -1))
+    videos = list(db.aloneprac.find({}).sort('like', -1))
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -119,25 +120,17 @@ def saving():
 
     db.aloneprac.insert_one(doc)
 
-    return jsonify({'msg': 'POST!'})
-
-
-@app.route('/api/delete', methods=['POST'])
-def delete_star():
-    target_name = request.form['name_give']
-    db.mystar.delete_one({'name': target_name})
-    return jsonify({'msg': '삭제 완료ㅠㅠ'})
-
+    return jsonify({'msg': '등록완료!'})
 
 @app.route('/show/like', methods=['POST'])
 def like_star():
-    url_receive = request.form['url_give']
-    target_star = db.aloneprac.find_one({'url': url_receive})
+    id_receive = request.form['id_give']
+    target_star = db.aloneprac.find_one({'_id': ObjectId(id_receive)})
     current_like = target_star['like']
 
     new_like = current_like + 1
 
-    db.aloneprac.update_one({'url': url_receive}, {'$set': {'like': new_like}})
+    db.aloneprac.update_one({'_id': ObjectId(id_receive)}, {'$set': {'like': new_like}})
     # 값을 변경해준다 네임값은 받은 네임값 라이크는 뉴라이크로
 
     return jsonify({'msg': 'like 완료!'})
