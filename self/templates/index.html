@@ -428,7 +428,7 @@
                                 <p class="control">
 
                                     <input id="input-name" class="input"
-                                           placeholder="홍길동" value=""><-- 여기 바꿀값이 들어가야댐
+                                           placeholder="홍길동" value="" required>
                                 </p>
                             </div>
                             <div class="field">
@@ -515,7 +515,7 @@
                 <p class="card-text comment">{{ row.comment }}</p>
                 <p>작성자: {{ row.profile_name }}</p>
                 <div class="like-Btn">
-                    <a href="#" onclick="like_Star({{ row.url }})" class="card-footer-item has-text-info">
+                    <a href="#" onclick="like_Star('{{ row.url }}')" class="card-footer-item has-text-info">
                         Like!<span class="icon">
                                                       <i class="fas fa-thumbs-up"></i>
                                                     </span>

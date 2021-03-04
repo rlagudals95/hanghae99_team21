@@ -30,7 +30,7 @@ def home():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-    return render_template("index.html", videos=videos, rofile_info=user_info['profile_info'],username=user_info['username'], profile_name=user_info['profile_name'])
+    return render_template("index.html", videos=videos, profile_info=user_info['profile_info'],username=user_info['username'], profile_name=user_info['profile_name'])
 
 
 @app.route('/login')
@@ -94,7 +94,7 @@ def check_dup():
 def saving():
     token_receive = request.cookies.get('mytoken')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    user_info = db.users.find_one({"profile_name": payload["id"]})
+    user_info = db.users.find_one({"username": payload["id"]})
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 

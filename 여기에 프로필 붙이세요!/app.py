@@ -30,7 +30,7 @@ def home():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-    return render_template("index.html", videos=videos, nickname=user_info['profile_name'])
+    return render_template("index.html", videos=videos, profile_info=user_info['profile_info'],username=user_info['username'], profile_name=user_info['profile_name'])
 
 
 @app.route('/login')
@@ -94,7 +94,7 @@ def check_dup():
 def saving():
     token_receive = request.cookies.get('mytoken')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    user_info = db.users.find_one({"profile_name": payload["id"]})
+    user_info = db.users.find_one({"username": payload["id"]})
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 
@@ -141,6 +141,33 @@ def like_star():
     # 값을 변경해준다 네임값은 받은 네임값 라이크는 뉴라이크로
 
     return jsonify({'msg': 'like 완료!'})
+
+#프로필 업데이트
+@app.route('/update_profile', methods=['POST'])
+def save_img():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        username = payload["id"]
+        name_receive = request.form["name_give"]
+        about_receive = request.form["about_give"]
+        new_doc = {
+            "profile_name": name_receive,
+            "profile_info": about_receive
+        }
+        if 'file_give' in request.files:
+            file = request.files["file_give"]
+            filename = secure_filename(file.filename)
+            extension = filename.split(".")[-1]
+            file_path = f"profile_pics/{username}.{extension}"
+            file.save("./static/"+file_path)
+            new_doc["profile_pic"] = filename
+            new_doc["profile_pic_real"] = file_path
+        db.users.update_one({'username': payload['id']}, {'$set':new_doc})
+        return jsonify({"result": "success", 'msg': '프로필을 업데이트했습니다.'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
 
 
 if __name__ == '__main__':
