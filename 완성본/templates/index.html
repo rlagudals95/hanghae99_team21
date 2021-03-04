@@ -202,16 +202,20 @@
         }
 
         .card-text {
-            height: 100px;
+            height: 70px;
             overflow: hidden;
             word-wrap: break-word;
         }
 
+        .writer {
+            margin-bottom: 5px;
+        }
 
         .comment {
             font-weight: bolder;
             margin-top: 10px;
-            height: 75px;
+            height: 100px;
+            overflow: auto;
         }
 
         .card:hover {
@@ -290,6 +294,30 @@
         .box {
             height: 100%;
         }
+
+
+        /* 스크롤바 컨트롤 */
+        .comment::-webkit-scrollbar {
+            width: 10px;
+            height: 5px;
+        }
+
+        .comment::-webkit-scrollbar-thumb {
+            background-color: #6bb5e6;
+            border-radius: 10px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+
+        .comment::-webkit-scrollbar-track {
+            background-color: #;
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 5px white;
+        }
+
+
+
+
     </style>
 
 
@@ -579,7 +607,7 @@
              alt="Card image cap">
         <div class="card-body">
             <a target="_blank" href="{{ row.url }}" class="card-title">{{ row.title }}</a>
-            <p>작성자: {{ row.profile_name }}</p>
+            <p class="writer">작성자: {{ row.profile_name }}</p>
             <p class="card-text">{{ row.desc }}</p>
             <p class="card-text comment">{{ row.comment }}</p>
 
