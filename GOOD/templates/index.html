@@ -177,7 +177,6 @@
             margin: 0 200px;
             margin-top: 50px;
             flex-wrap: wrap;
-
         }
 
         .card {
@@ -186,7 +185,7 @@
             margin-top: 30px;
             margin-bottom: 130px;
             width: 400px;
-            height: 700px;
+            height: 715px;
             border-radius: 20px;
             box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .1);
         }
@@ -196,19 +195,27 @@
             font-weight: bold;
             color: dodgerblue;
             margin: 0 auto 10px auto;
-        }
-
-        .card-text {
-            height: 100px;
+            display: inline-block;
+            height: 30px;
             overflow: hidden;
             word-wrap: break-word;
         }
 
+        .card-text {
+            height: 70px;
+            overflow: auto;
+            word-wrap: break-word;
+        }
+
+        .writer {
+            margin-bottom: 5px;
+        }
 
         .comment {
             font-weight: bolder;
             margin-top: 10px;
-            height: 75px;
+            height: 100px;
+            overflow: auto;
         }
 
         .card:hover {
@@ -222,7 +229,7 @@
         .like-Btn {
             position: absolute;
             left: 50%;
-            bottom: 10px;
+            bottom: -20px;
             transform: translate(-50%, -50%);
             text-align: center;
         }
@@ -275,7 +282,7 @@
 
         .modal-content {
             position: absolute;
-            height: 470px;
+            height: 400px;
         }
 
         .media-content2 {
@@ -284,18 +291,50 @@
             width: 100%;
         }
 
-
         .box {
             height: 100%;
         }
-
-        .white{
-            width: 600px;
-            height: 60px;
-            background-color: white;
-            position: fixed;
-            z-index: 4;
+        .field {
+            margin-bottom: 10px;
         }
+
+        /* 스크롤바 컨트롤 */
+                .card-text::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            background-color: #cfc3e4;
+            border-radius: 10px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+
+        .card-text::-webkit-scrollbar-track {
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 5px white;
+        }
+
+
+        .comment::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .comment::-webkit-scrollbar-thumb {
+            background-color: #cfc3e4;
+            border-radius: 10px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+
+        .comment::-webkit-scrollbar-track {
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 5px white;
+        }
+
+
+
+
     </style>
 
 
@@ -397,13 +436,13 @@
 
         }
 
-        function update_profile() {
+function update_profile() {
             let name = $('#input-name').val()
-            let file = $('#input-pic')[0].files[0]  //파일
+
             let about = $("#textarea-about").val()
             if (name !== '') {
                 let form_data = new FormData()
-                form_data.append("file_give", file);   // 파일
+                   // 파일
                 form_data.append("name_give", name);
                 form_data.append("about_give", about);
                 $.ajax({
@@ -464,7 +503,7 @@
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong>ID : {{ profile_name }}</strong> <strong> |  NICKNAME : {{ username }}</strong>
+                        <strong>ID : {{ username }}</strong> <strong> |  NICKNAME : {{ profile_name }}</strong>
                         <br>
                         <br>
                         {{ profile_info }}
@@ -505,36 +544,15 @@
                                            placeholder="홍길동" value="{{ profile_name }}">
                                 </p>
                             </div>
-                            <div class="field">
-
-
-                                <div class="control is-expanded">
-                                    <div class="file has-name">
-                                        <label class="file-label" style="width:100%">
-                                            <div class="white"></div>
-                                            <input id="input-pic" class="file-input" type="file"
-                                                   name="resume">
-                                            <span class="file-cta"><span class="file-icon"><i
-                                                    class="fa fa-upload"></i></span>
-                                                    <span class="file-label">파일 선택</span>
-                                                </span>
-                                            <span id="file-name" class="file-name"
-                                                  style="width:100%;max-width:100%"></span>
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="field">
+<div class="field">
                                 <label class="label" for="textarea-about">자기소개</label>
 
                                 <p class="control">
 
                                             <textarea id="textarea-about" class="textarea"
-                                                      placeholder="나로 말하자면..."></textarea>
+                                                      placeholder="나로 말하자면..." >{{ profile_info }}</textarea>
                                 </p>
-                            </div>
-                            <nav class="level is-mobile">
+                            </div>                            <nav class="level is-mobile">
                                 <div class="level-left">
 
                                 </div>
